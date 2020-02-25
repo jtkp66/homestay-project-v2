@@ -65,7 +65,7 @@
                 {% endif %} 
               <td>
                 {% if post.is_complete %}
-                  <a class="btn btn-light" href="{% url 'post_detail' post.id %}">Pending Approval</a>
+                  <a class="btn btn-primary" href="{% url 'post_receipt' post.id %}">Pending Approval</a>
                 {% else %}
                   <a class="btn btn-danger" href="{% url 'update_task' post.id %}"><span class="glyphicon glyphicon-pencil"></span>Finish Survey</a>
               {% endif %}    

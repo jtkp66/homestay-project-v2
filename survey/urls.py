@@ -14,4 +14,6 @@ urlpatterns = [
     path('new2/', views.post_form, name='post_form'),
     path('<int:pk>/', PostDetailView.as_view(), name='post_detail'),
     path('<int:pk>/edit/', views.post_edit, name='post_edit'),
+    path("pdf/<str:pk>/", views.post_receipt, name="post_receipt",
+         ),
 ]

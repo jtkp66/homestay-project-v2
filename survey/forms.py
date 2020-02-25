@@ -8,7 +8,7 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ('coordinator',
-                  'is_complete',
+                  'photo_main',
                   'date_of_contact',
                   'student_surname',
                   'hostfamily',
@@ -64,7 +64,7 @@ class PostForm(forms.ModelForm):
                   'sch_5a',
                   'sch_6',
                   'sch_classes_grades',
-                  'photo_main')
+                  'is_complete',)
         labels = {
             "coordinator": "Coordinator's Name",
             "date_of_contact": "Date(s) of contact (Month/Day/Year):",
@@ -128,6 +128,47 @@ class PostForm(forms.ModelForm):
             'date_of_contact': forms.SelectDateWidget()
         }
 
+
+class PostForm2(forms.ModelForm):
+
+    class Meta:
+        model = Post
+        fields = ('hf_hostfamily_name',
+                  'hf_1',
+                  'hf_1a',
+                  'hf_2',
+                  'hf_3',
+                  'hf_3a',
+                  'hf_3b',
+                  'hf_4',
+                  'hf_4a',
+                  'hf_4b',
+                  'hf_5',
+                  'hf_5a',
+                  'hf_6',
+                  'hf_6a',
+                  'hf_7',
+                  'hf_7a',
+                  'hf_coordinator_comments',)
+        labels = {
+            "hf_hostfamily_name": "HOST FAMILY'S LAST NAME",
+            "hf_1": "How is your relationship with your student?",
+            "hf_1a": "Comments:",
+            "hf_2": "Please Tell me about an experience you had this month with your student that differs from last month (REQUIRED).",
+            "hf_3": "* Do you feel your student is improving his/her level of conversational english?",
+            "hf_3a": "If yes, provide examples of how your student has improved in this area:",
+            "hf_3b": "If no, provide examples of specific areas you feel your student can improve upon to help strengthen his/her level of English:",
+            "hf_4": "Has your student interacted with your family this month?",
+            "hf_4a": "If yes, provide examples of how your student interacted with your family this month:",
+            "hf_4b": "If no, provide examples of how your student can better interact with your family:",
+            "hf_5": "Has your student made plans with any American friends or shown any interest in events in the community?",
+            "hf_5a": "If yes, please provide details:",
+            "hf_6": "Does your student obey the rules at home this month?",
+            "hf_6a": "If no, please provide details so MAH can counsel the student to better improve in this area:",
+            "hf_7": "Rate your hosting experience so far:",
+            "hf_7a": "Host Family's Comments:",
+            "hf_coordinator_comments": "Coordinator's comments re: Host Family progress this month (REQUIRED):",
+        }
     # class Meta:
     #     model = Post
     #     fields = ('coordinator',

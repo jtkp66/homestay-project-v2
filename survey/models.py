@@ -26,16 +26,18 @@ class Post(models.Model):
     ]
 
     # Student Progress Report
+    photo_main = models.ImageField(
+        upload_to='photos/%Y/%m/%d/', verbose_name="Add Photo of Student Interacting with Host Family below:", blank=True)
     coordinator = models.CharField(
         max_length=100, verbose_name="Coordinator :")
-    is_complete = models.BooleanField(default=False)
+
     date_of_contact = models.DateField(default=date.today)
     student_surname = models.CharField(
         max_length=100, verbose_name="Student's Surname :")
     hostfamily = models.CharField(
         max_length=100, verbose_name="Host Family Name :")
     student_eng_name = models.CharField(
-        max_length=50, verbose_name="Student's English Name :")
+        max_length=100, verbose_name="Student's English Name :")
     st_1 = models.CharField(max_length=50, choices=STATUS_CHOICES,
                             verbose_name="How are you getting along with your host family?", blank=True)
     st_1a = models.TextField(verbose_name="Comments :", blank=True)
@@ -55,10 +57,10 @@ class Post(models.Model):
         verbose_name="If yes, provide details:", blank=True)
     st_6 = models.CharField(max_length=20, choices=STATUS_CHOICES,
                             verbose_name="* How do you feel you are doing in school?", blank=True)
-    st_6a = models.TextField(
-        verbose_name="What is your favorite subject this month?", blank=True)
-    st_6b = models.TextField(
-        verbose_name="What subject are you having trouble with this month?", blank=True)
+    st_6a = models.CharField(
+        verbose_name="What is your favorite subject this month?", max_length=100, blank=True)
+    st_6b = models.CharField(
+        verbose_name="What subject are you having trouble with this month?", max_length=100, blank=True)
     st_7 = models.CharField(
         max_length=10, choices=YES_OR_NO_CHOICES, verbose_name="* Did you experience any issues this month with your host family or at School?", blank=True)
     st_7a = models.CharField(
@@ -134,8 +136,7 @@ class Post(models.Model):
         max_length=10, choices=YES_OR_NO_CHOICES, verbose_name="Is the student receiving a 'C' or better in each class?", blank=True)
     sch_classes_grades = models.TextField(
         verbose_name="List all classes & current grades this month below.", blank=True)
-    photo_main = models.ImageField(
-        upload_to='photos/%Y/%m/%d/', verbose_name="Add Photo of Student Interacting with Host Family below:", blank=True)
+    is_complete = models.BooleanField(default=False)
 
     def __str__(self):
         return self.coordinator
@@ -146,4 +147,4 @@ class Post(models.Model):
         img = Image.open(self.photo_main.path)
 
     def get_absolute_url(self):
-        return reverse('post_detail', kwargs={'pk': self.pk})
+        return reverse('post_receipt', kwargs={'pk': self.pk})

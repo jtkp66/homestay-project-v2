@@ -1,8 +1,18 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.decorators import login_required
+from django.template.loader import get_template, render_to_string
+from fpdf import FPDF, HTMLMixin
+from django.utils.text import slugify
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.contrib import messages
+from django.urls import reverse_lazy
 from .forms import PostForm
+
+from weasyprint import HTML
+from weasyprint.fonts import FontConfiguration
+
 from django.views.generic import (
     CreateView,
     DetailView,
@@ -27,7 +37,7 @@ def post_form(request):
 		form = PostForm(request.POST)
 		if form.is_valid():
 			form.save()
-			return redirect('post_detail', pk=post.pk)
+			return redirect('/')
 
 	context = {'form':form}
 	return render(request, 'survey/post_form.html', context)    
@@ -62,8 +72,8 @@ def post(request, post_id):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['coordinator',
-                  'is_complete',
+    success_url = reverse_lazy('dashboard')
+    fields = ['coordinator',            
                   'date_of_contact',
                   'student_surname',
                   'hostfamily',
@@ -119,7 +129,8 @@ class PostCreateView(LoginRequiredMixin, CreateView):
                   'sch_5a',
                   'sch_6',
                   'sch_classes_grades',
-                  'photo_main',]
+                  'photo_main',
+                  'is_complete',]
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -133,6 +144,7 @@ def post_new(request):
             post.author = request.user
             post.date_posted = timezone.now()
             post.save()
+            messages.error(request, 'Must Upload photo to save.')
             return redirect('post_detail', pk=post.pk)
     else:
         form = PostForm()
@@ -153,6 +165,44 @@ def updateTask(request, pk):
 
 	return render(request, 'survey/update_task.html', context)
 
+@login_required
+def post_receipt(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    response = HttpResponse(content_type="application/pdf")
+    response['Content-Disposition'] = "inline; filename={date}-{name}-post-receipt.pdf".format(
+        date=post.date_posted.strftime('%Y-%m-%d'),
+        name=slugify(post.coordinator),
+    )
+    html = render_to_string("survey/receipt_pdf.html", {
+        'post': post,
+    })
+
+    font_config = FontConfiguration()
+    HTML(string=html, base_url=request.build_absolute_uri()).write_pdf(response, font_config=font_config)
+    return response
+
+class HtmlPdf(FPDF, HTMLMixin):
+    pass
+
+def print_pdf(request, pk):
+    post = get_object_or_404(Post, pk=pk, user=request.user) 
+    pdf = HtmlPdf()
+    pdf.add_page()
+    pdf.write_html(render_to_string('survey/pdf.html'))
+
+    response = HttpResponse(pdf.output(dest='S').encode('latin-1'))
+    response['Content-Type'] = 'application/pdf'
+
+    return response
+# def print_pdf(request):    
+#     pdf = HtmlPdf()
+#     pdf.add_page()
+#     pdf.write_html(render_to_string('survey/pdf.html'))
+
+#     response = HttpResponse(pdf.output(dest='S').encode('latin-1'))
+#     response['Content-Type'] = 'application/pdf'
+
+#     return response
 
 class PostDetailView(DetailView):
     model = Post
@@ -235,7 +285,6 @@ def post_edit(request, pk):
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
     fields = ['coordinator',
-                  'is_complete',
                   'date_of_contact',
                   'student_surname',
                   'hostfamily',
@@ -291,7 +340,8 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
                   'sch_5a',
                   'sch_6',
                   'sch_classes_grades',
-                  'photo_main']
+                  'photo_main',
+                  'is_complete',]
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -302,3 +352,18 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         if self.request.user == post.author:
             return True
         return False
+
+class HtmlPdf(FPDF, HTMLMixin):
+    pass
+
+
+def print_pdf(request):    
+    pdf = HtmlPdf()
+    pdf.add_page()
+    pdf.write_html(render_to_string('survey/pdf.html'))
+
+    response = HttpResponse(pdf.output(dest='S').encode('latin-1'))
+    response['Content-Type'] = 'application/pdf'
+
+    return response
+

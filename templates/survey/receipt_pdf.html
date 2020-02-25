@@ -1,0 +1,304 @@
+{% load static %}
+
+<style>
+    img {
+        width: 100%;
+        height: auto;
+      }
+    .container {
+        font-size: 13px;
+    }
+    h2 {
+        color: rgb(38, 28, 173);
+        text-align: left;
+        
+    }
+    h4 {
+        color: rgb(38, 28, 173);
+    }
+    h5 {
+        color: rgb(38, 28, 173);
+    }
+    .coname {
+        margin-left: 70px;
+    }
+    .form-head {
+        color: red;
+    }
+    .coord-comments {
+        color: red;
+    }
+    .logo {
+        margin-bottom: 20px;
+        float: right;
+    }
+    @page {
+        @bottom-right {
+          content: counter(page) " of " counter(pages);
+        }
+      }
+    table {
+        width: 700px;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+    .smallone {
+        color: red;
+    }
+    div.page {
+        page-break-after:always;
+    }
+    @page {
+        size: Letter; /* Change from the default size of A4 */
+        margin: 1.0cm; /* Set margin on each page */
+      }
+    div {
+        display: block;
+    }
+    input[type="radio"] {
+        height: 1em;
+        width: 1em;
+        display: inline-block;
+        border: black 2px solid;
+        margin: 0 0.5em;
+    }
+    .checkmark {
+        color: red;
+    }
+    p {
+        color: rgb(38, 28, 173);
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    p.sansserif {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+    small {
+        color: black;
+    }
+    .hrone {
+        color: red;
+    }
+    .hrtwo {
+        color: rgb(38, 28, 173);
+    }
+    th {
+        font-size: 14px;
+    }
+    .blackink {
+        color: black;
+    }
+</style>
+
+<div class="container">
+    <header>
+        <p>
+            <img class="logo" style="width:300px;height:100px; margin-bottom:0px;" src="{% static 'img/logo.png' %}" alt="MAH LOGO"/>
+            <h2>MONTHLY PROGRESS REPORT </h2>
+        </p>
+    </header>
+    <hr class="hrone">
+    <hr class="hrtwo">
+    <table width="50%">
+        <thead>
+            <tr>
+                <th width="30%">Date(s) of Contact: <small>{{ post.date_of_contact }}</small></th>
+                <th width="70%">Coordinator Name: <small>{{ post.coordinator }}</small></th>
+            </tr>
+        </thead>
+        <br>
+        <thead>
+            <tr>
+                <th width="30%">Student's Surname, Given Name: <small>{{ post.student_surname }}</small></th>
+                <th width="70%">Host Family Name: <small>{{ post.hostfamily }}</small></th>
+            </tr>
+        </thead>
+    </table>
+    <h2 class="form-head" >STUDENT PROGRESS</h2>
+        <h5>STUDENT’S ENGLISH NAME: <span class="blackink">{{ post.student_eng_name }}</span></h5>
+        <p>1) How are you getting along with your host family? <span class="checkmark" style='font-size:25px;'>&#10003;</span> <small>{{ post.st_1 }}</small>
+        <br>
+        <label style="margin-right: 5px; margin-left:10px;">Comments:</label><small>{{ post.st_1a }}</small></p>
+        <p>2) Please tell me about one experience you had this month at school that differs from last month (REQUIRED).
+        <br>
+        <small>{{ post.st_2 }}</small></p>
+        <p class="aLF-aPX-aPF-aPE-a1J-Ji">
+            3) Please tell me about one experience you had this month with your host family that differs from last month (REQUIRED). 
+            <small>{{ post.st_3 }}</small></p>
+        <p class="aLF-aPX-aPF-aPE-a1J-Ji">
+            4) Do you feel you are improving your conversational English? 
+            <span class="checkmark" style='font-size:25px;'>&#9745;</span>
+            <small>{{ post.st_4 }}</small></p>
+        <p class="aLF-aPX-aPF-aPE-a1J-Ji" style="margin-right: 5px; margin-left:10px;">
+            <i>If yes, provide examples of how you have improved your conversational level of English: </i>
+            <small>{{ post.st_4a }}</small></p>
+        <p class="aLF-aPX-aPF-aPE-a1J-Ji" style="margin-right: 5px; margin-left:10px;"><i>If no, provide examples of areas you would like to improve upon to help strengthen your level of English:</i> <small>{{ post.st_4b }}</small></p>
+        <p class="aLF-aPX-aPF-aPE-a1J-Ji" >
+            5) Have you made new American friends &amp; interests in the community or school? 
+            <span class="checkmark" style='font-size:25px;'>&#10003;</span>
+            <small>{{ post.st_5 }}</small></p>
+        <p class="aLF-aPX-aPF-aPE-a1J-Ji" style="margin-right: 5px; margin-left:10px;">
+            <i>If yes, provide details:</i>
+            <small>{{ post.st_5a }}</small></p>
+        <p>6) How do you feel you are doing in school?
+            <span class="checkmark" style='font-size:25px;'>&#10003;</span>
+            <small>{{ post.st_6 }}</small>
+        <br>
+            <label style="margin-right: 5px; margin-left:10px; margin-top:5px;">What is your favorite subject this month?</label>
+            <small>{{ post.st_6a }}</small>
+        <br>
+            <label style="margin-right: 5px; margin-left:10px; margin-top:5px;">What subject are you having trouble with this month?</label><small>{{ post.st_6b }}</small></p>
+        <p>7) Did you experience any issues this month with your host family or at school? 
+            <span class="checkmark" style='font-size:25px;'>&#10003;</span>
+            <small>{{ post.st_7 }}</small>
+            <br>
+            <label style="margin-right: 5px; margin-left:10px; margin-top:5px; margin-bottom:5px;">
+                <i>Is there anything you would like to talk about or need Help with?</i>
+            </label>
+            <span class="checkmark" style='font-size:25px;'>&#10003;</span>
+            <small>{{ post.st_7a }}</small>
+            <br>
+            <label style="margin-right: 5px; margin-left:10px; margin-top:5px;">Student's Comments:</label>
+            <small>{{ post.st_7b }}</small>
+        </p>
+            <br>
+        <p class="coord-comments" style="margin-top: 10px;" >
+            <strong>Coordinator’s Comments re:</strong> Student’s progress this month (REQUIRED):
+            <small>{{ post.st_coordinator_comments }}</small>
+        </p>
+        <div class="page"></div>
+
+    <!-- $$$$$$$$$$$$$$$$$$$ HOST FAMILY Page Break $$$$$$$$$$$$$$$$$$$ -->
+
+    <header>
+        <p>
+            <img class="logo" style="width:300px;height:100px; margin-bottom:0px;" src="{% static 'img/logo.png' %}" alt="MAH LOGO"/>
+            <h2>MONTHLY PROGRESS REPORT </h2>
+        </p>
+    </header>
+    <hr class="hrone">
+    <hr class="hrtwo">
+
+    <h2 class="form-head" >HOST FAMILY PROGRESS</h2>
+        <h4>HOST FAMILY'S LAST NAME: <span>{{ post.hf_hostfamily_name }}</span></h4>
+        <p>1) How is your relationship with your student? <span class="checkmark" style='font-size:25px;'>&#10003;</span> <small>{{ post.hf_1 }}</small>
+        <br>
+        <label style="margin-right: 5px; margin-left:10px;">Comments:</label><small>{{ post.hf_1a }}</small></p>
+        <p>2) Please Tell me about an experience you had this month with your student that differs from last month (REQUIRED).
+        <br>
+        <small>{{ post.hf_2 }}</small></p>
+        <p class="aLF-aPX-aPF-aPE-a1J-Ji">
+            3) Do you feel your student is improving his/her level of conversational english? 
+            <span class="checkmark" style='font-size:25px;'>&#10003;</span>
+            <small>{{ post.hf_3 }}</small></p>
+        <p class="aLF-aPX-aPF-aPE-a1J-Ji" style="margin-right: 5px; margin-left:10px;">
+            <i>If yes, provide examples of how your student has improved in this area: </i>
+            <small>{{ post.hf_3a }}</small></p>
+        <p class="aLF-aPX-aPF-aPE-a1J-Ji" style="margin-right: 5px; margin-left:10px;">
+            <i>If no, provide examples of specific areas you feel your student can improve upon to help strengthen his/her level of English:</i>
+            <small>{{ post.hf_3b }}</small></p>
+        <p class="aLF-aPX-aPF-aPE-a1J-Ji" >
+            4) Has your student interacted with your family this month? 
+            <span class="checkmark" style='font-size:25px;'>&#10003;</span>
+            <small>{{ post.hf_4 }}</small></p>
+        <p class="aLF-aPX-aPF-aPE-a1J-Ji" style="margin-right: 5px; margin-left:10px;">
+            <i>If yes, provide examples of how your student interacted with your family this month:</i>
+            <small>{{ post.hf_4a }}</small></p>
+        <p class="aLF-aPX-aPF-aPE-a1J-Ji" style="margin-right: 5px; margin-left:10px;">
+            <i>If no, provide examples of how your student can better interact with your family:</i>
+            <small>{{ post.hf_4b }}</small></p>
+        <p class="aLF-aPX-aPF-aPE-a1J-Ji" >
+            5) Has your student made plans with any American friends or shown any interest in events in the community? 
+            <span class="checkmark" style='font-size:25px;'>&#10003;</span>
+            <small>{{ post.hf_5 }}</small></p>
+        <p class="aLF-aPX-aPF-aPE-a1J-Ji" style="margin-right: 5px; margin-left:10px;">
+            <i>If yes, provide examples of how your student interacted with your family this month:</i>
+            <small>{{ post.hf_5a }}</small></p>
+        <p class="aLF-aPX-aPF-aPE-a1J-Ji" >
+            6) Does your student obey the rules at home this month? 
+            <span class="checkmark" style='font-size:25px;'>&#10003;</span>
+            <small>{{ post.hf_6 }}</small></p>
+        <p class="aLF-aPX-aPF-aPE-a1J-Ji" style="margin-right: 5px; margin-left:10px;">
+            <i>If no, please provide details so MAH can counsel the student to better improve in this area:</i>
+            <small>{{ post.hf_6a }}</small>
+        </p>
+        <p>7) How is your relationship with your student? 
+            <span class="checkmark" style='font-size:25px;'>&#10003;</span>
+            <small>{{ post.hf_7 }}</small>
+            <br>
+            <label style="margin-right: 5px; margin-left:10px;">Host Family's Comments:</label><small>{{ post.hf_7a }}</small></p>
+            <br>
+        <p class="coord-comments" style="margin-top: 10px;" >
+            <strong>Coordinator’s Comments re:</strong> Host Family progress this month (REQUIRED):
+            <small>{{ post.hf_coordinator_comments }}</small>
+        </p>
+        <div class="page"></div>
+
+    <!-- $$$$$$$$$$$$$$$$$$$ SCHOOL PROGRESS Page Break $$$$$$$$$$$$$$$$$$$ -->
+    <header>
+        <p>
+            <img class="logo" style="width:300px;height:100px; margin-bottom:0px;" src="{% static 'img/logo.png' %}" alt="MAH LOGO"/>
+            <h2>MONTHLY PROGRESS REPORT </h2>
+        </p>
+    </header>
+    <hr class="hrone">
+    <hr class="hrtwo">
+    
+    <h2 class="form-head" >SCHOOL PROGRESS</h2>
+    <table width="50%">
+        <thead>
+            <tr>
+                <th width="30%">SCHOOL'S NAME: <small>{{ post.sch_school_name }}</small></th>
+                <th width="70%">STUDENT'S NAME: <small>{{ post.sch_student_name }}</small></th>
+            </tr>
+        </thead>
+    </table>
+        <p>1) List the name and title of the contact person you spoke with at the school:
+        <br>
+        <label style="margin-right: 5px; margin-left:10px; margin-top:10px;"><strong>Name of Contact:</strong></label><small>{{ post.sch_1a }}</small>
+        <label style="margin-right: 5px; margin-left:10px;"><strong>Contact's Title:</strong></label><small>{{ post.sch_1b }}</small></p>
+        <p>2) What is the school's impression of the student's academic performance this month? <span class="checkmark" style='font-size:25px;'>&#10003;</span> <small>{{ post.sch_2 }}</small>
+            <br>
+            <label style="margin-right: 5px; margin-left:10px;">School's feedback about student's academic performance this month:</label><small>{{ post.sch_2a }}</small></p>
+        <p class="aLF-aPX-aPF-aPE-a1J-Ji" >
+            3) Has the student had any accomplishments (e.g., honor roll, athletics, club participation)?
+            <span class="checkmark" style='font-size:25px;'>&#10003;</span>
+            <small>{{ post.sch_3 }}</small></p>
+        <p class="aLF-aPX-aPF-aPE-a1J-Ji" style="margin-right: 5px; margin-left:10px;">
+            <i>Please list details re: accomplishments:</i>
+            <small>{{ post.sch_3a }}</small>
+        </p>
+        <p class="aLF-aPX-aPF-aPE-a1J-Ji" >4) Has the student missed any days from school?
+            <span class="checkmark" style='font-size:25px;'>&#10003;</span>
+            <small>{{ post.sch_4 }}</small></p>
+        <p style="margin-right: 5px; margin-left:12px;">
+            <strong><i># of Days Missed:</i></strong>
+            <br>
+            <small>{{ post.sch_4a }}</small></p>
+        <p style="margin-right: 5px; margin-left:12px;">
+            <strong><i>Were these excused absences?</i></strong>
+            <br>
+            <small>{{ post.sch_4b }}</small></p>
+        <p style="margin-right: 5px; margin-left:12px;">
+            <strong><i>School's Comments re: student's attendance:</i></strong>
+        <br>
+        <small>{{ post.sch_4c }}</small></p>
+        <p class="aLF-aPX-aPF-aPE-a1J-Ji" >
+            5) Does the student need additional help at school, such as tutoring, or is there any area(s) MAH can counsel the student to help him/her improve in this area?
+            <span class="checkmark" style='font-size:25px;'>&#10003;</span>
+            <small>{{ post.sch_5 }}</small></p>
+        <p class="aLF-aPX-aPF-aPE-a1J-Ji" style="margin-right: 5px; margin-left:10px;">
+            <i>School's Comments:</i>
+            <small>{{ post.sch_5a }}</small>
+        </p>
+        <p class="aLF-aPX-aPF-aPE-a1J-Ji" >
+            5) Is the student receiving a "C" or better in each class?
+            <span class="checkmark" style='font-size:25px;'>&#10003;</span>
+            <small>{{ post.sch_6 }}</small></p>
+        <p class="aLF-aPX-aPF-aPE-a1J-Ji" style="margin-right: 5px; margin-left:10px;">
+            <i>List all classes & current grades this month below.</i>
+            <small>{{ post.sch_classes_grades }}</small>
+        </p>
+    
+    <div class="page"></div>
+
+    <img src="{{ post.photo_main.url}}" alt="Student Photo" value="{{ post.photo_main}}">
+</div>
